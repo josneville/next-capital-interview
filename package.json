@@ -18,8 +18,9 @@
   "homepage": "https://github.com/josneville/next-capital-interview",
   "dependencies": {
   	"express": "~4.9.4",
-	"body-parser": "latest",
-	"morgan": "latest",
-	"express-session": "latest"
+    "body-parser": "latest",
+    "morgan": "latest",
+    "express-session": "latest",
+	"request": "latest"
   }
 }
