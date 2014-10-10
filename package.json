@@ -1,0 +1,25 @@
+{
+  "name": "next_capital",
+  "version": "1.0.0",
+  "description": "My submission for the next capital interview",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/josneville/next-capital-interview.git"
+  },
+  "author": "Neville Jos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josneville/next-capital-interview/issues"
+  },
+  "homepage": "https://github.com/josneville/next-capital-interview",
+  "dependencies": {
+  	"express": "~4.9.4",
+	"body-parser": "latest",
+	"morgan": "latest",
+	"express-session": "latest"
+  }
+}
