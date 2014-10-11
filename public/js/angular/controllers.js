@@ -71,7 +71,8 @@ TodoApp.controller('todos', function($scope, $http, $window, $location, mainAPI)
 				$location.path('/');
 			});
 	}
-
+	$scope.predicate = ['is_complete','description'];
+	$scope.reverse = false;
 	$scope.addTodo = function(){
 		if ($scope.newTodo){
 			mainAPI.newTodo({"description": $scope.newTodo})
@@ -81,8 +82,14 @@ TodoApp.controller('todos', function($scope, $http, $window, $location, mainAPI)
 				})
 		}
 	}
-	$scope.todoCompleted = function(todo){
-		todo.is_complete = true;
+	$scope.updateComplete = function(todo){
+		todo.is_complete = !todo.is_complete;
+		mainAPI.updateTodo(todo.id, todo)
+			.success(function(data, status, headers, config){
+				$scope.todos = data;
+			})
+	}
+	$scope.updateDescription = function(todo){
 		mainAPI.updateTodo(todo.id, todo)
 			.success(function(data, status, headers, config){
 				$scope.todos = data;

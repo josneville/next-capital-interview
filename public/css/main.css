@@ -50,3 +50,8 @@ border-radius: 5px;
   color: #000;
   font-weight: 600;
 }
+
+.completed{
+  text-decoration: line-through;
+  color: #555;
+}

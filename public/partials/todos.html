@@ -24,12 +24,16 @@
       </div><!-- /.col-lg-6 -->
   </div><!-- /row -->
   <br />
-  <div class="row" ng-repeat="todo in todos" ng-hide="todo.is_complete">
-    <form class="form-inlne">
+  <div class="col-xs-12">
+    <h6 style="float: right">Sort <i class="fa fa-sort"></i> : <a ng-click="predicate = 'is_complete'; reverse=!reverse">Completed</a>|<a ng-click="predicate = 'description'; reverse=!reverse">Description</a></h6>
+  </div>
+  <br />
+  <div class="row" ng-repeat="todo in todos | orderBy:predicate:reverse">
+    <form class="form-inlne" ng-submit="updateDescription(todo)">
       <div class="form-group">
         <div class="input-group">
-          <div class="input-group-addon"><input type="checkbox" ng-click="todoCompleted(todo)" ng-model="todo.is_complete"></div>
-          <input class="form-control" ng-model="todo.description">
+          <div class="input-group-addon"><input type="checkbox" ng-model="todo.is_complete" ng-click="updateComplete(todo)"></div>
+          <input class="form-control" ng-model="todo.description" ng-blur="updateDescription(todo)" ng-class="{'completed': todo.is_complete}">
         </div>
       </div>
 	  </form>
