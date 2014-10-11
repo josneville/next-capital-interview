@@ -126,6 +126,7 @@ function getAll(req, res){
 			res.send(400, err);
 			return;
 		}
+		console.log(data);
 		res.send(200, data);
 	});
 }

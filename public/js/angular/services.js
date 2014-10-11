@@ -48,6 +48,15 @@ TodoApp.factory('mainAPI', function($http){
 				},
 				method: "POST"
 			})
+		},
+		updateTodo: function(todoID, todo){
+			return $http({
+				url: '/api/todos/update/'+todoID,
+				data: {
+					'todo': todo
+				},
+				method: "POST"
+			})
 		}
 	 }
 });

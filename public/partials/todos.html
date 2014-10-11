@@ -24,6 +24,14 @@
       </div><!-- /.col-lg-6 -->
   </div><!-- /row -->
   <br />
-  <div class="row">
-  </div>
+  <div class="row" ng-repeat="todo in todos" ng-hide="todo.is_complete">
+    <form class="form-inlne">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon"><input type="checkbox" ng-click="todoCompleted(todo)" ng-model="todo.is_complete"></div>
+          <input class="form-control" ng-model="todo.description">
+        </div>
+      </div>
+	  </form>
+  </div><!-- /row -->
 </div>

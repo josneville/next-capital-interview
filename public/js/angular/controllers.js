@@ -77,7 +77,15 @@ TodoApp.controller('todos', function($scope, $http, $window, $location, mainAPI)
 			mainAPI.newTodo({"description": $scope.newTodo})
 				.success(function(data, status, headers, config){
 					$scope.todos = data;
+					$scope.newTodo = "";
 				})
 		}
+	}
+	$scope.todoCompleted = function(todo){
+		todo.is_complete = true;
+		mainAPI.updateTodo(todo.id, todo)
+			.success(function(data, status, headers, config){
+				$scope.todos = data;
+			})
 	}
 });
