@@ -11,7 +11,9 @@ app.use(bodyParser.json());
 
 app.use(session({secret: 'next capital is dope'}));
 
-app.get('*', function(req, res) {
+app.use(express.static(__dirname + "/public"));
+
+app.get('/todos', function(req, res) {
 	res.sendFile(path.join(__dirname, './public', 'index.html'));
 });
 

@@ -1,0 +1,52 @@
+body{
+	/*background-color: #2C3E50;*/
+	background-color: #009688;
+	margin-bottom: 50px;
+	    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 1s; /* Firefox < 16 */
+        -ms-animation: fadein 1s; /* Internet Explorer */
+         -o-animation: fadein 1s; /* Opera < 12.1 */
+            animation: fadein 1s;
+}
+
+a, a:hover, p, h1, h2, h3, h4, h5, h6, div, span{
+	font-family: 'Josefin Slab', serif;
+	color: #fff;
+}
+
+a:hover{
+  cursor: pointer;
+}
+
+a h4:hover{
+  text-decoration: underline;
+}
+
+h1{
+	font-size: 48px;
+	font-weight: 700;
+}
+
+p{
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.form-signin{
+  background-color: #00897b;
+  padding: 20px;
+  margin-top: 20%;
+  -webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
+
+.panel{
+  background-color: #d9534f;
+  border-color:  #d9534f;
+}
+
+.form-control{
+  color: #000;
+  font-weight: 600;
+}

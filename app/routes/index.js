@@ -13,18 +13,20 @@ module.exports = function(app){
 			url: api_url + "/users",
 			json: {email: postEmail, password: postPassword}
 		}, function(err, response, data){
-			if (err){
+			console.log(data);
+			if (err || data.email[0] === 'has already been taken'){
 				res.send(400, "Account Already Exists");
 				return;
 			}
 			req.session.token = data.api_token;
-			req.session.id = data.id;
+			req.session.user_id = data.id;
+			req.session.email = data.email;
 			res.send(200, data.todos);
 		});
 	});
-	
+
 	app.post("/api/users/isLoggedIn", isLoggedIn, function(req, res){
-		res.send(200);
+		res.send(200, req.session.email);
 	});
 
 	app.post("/api/users/login", function(req, res){
@@ -39,12 +41,14 @@ module.exports = function(app){
 			url: api_url + "/users/sign_in",
 			json: {email: postEmail, password: postPassword}
 		}, function(err, response, data){
-			if (err){
+			if (err || data.error){
 				res.send(401, "Invalid Information");
 				return;
 			}
+			console.log(data);
 			req.session.token = data.api_token;
-			req.session.id = data.id;
+			req.session.user_id = data.id;
+			req.session.email = data.email;
 			res.send(200, data.todos);
 		});
 	});
@@ -53,14 +57,15 @@ module.exports = function(app){
 		request({
 			method: "DELETE",
 			url: api_url + "/users/sign_out",
-			json: {user_id: req.session.id, api_token: req.session.token}
+			json: {user_id: req.session.user_id, api_token: req.session.token}
 		}, function(err, response, data){
 			if (err){
 				res.send(400, err);
 				return;
 			}
 			req.session.token = "";
-			req.session.id = "";
+			req.session.user_id = "";
+			req.session.email = "";
 			res.send(200, "Signout successful");
 		});
 	});
@@ -75,17 +80,17 @@ module.exports = function(app){
 		}
 		request({
 			method: "POST",
-			url: api_url + "/users/" + req.session.id + "/todos",
-			json: {user_id: req.session.id, api_token: req.session.token, todo: postTodo} 
+			url: api_url + "/users/" + req.session.user_id + "/todos",
+			json: {user_id: req.session.user_id, api_token: req.session.token, todo: postTodo}
 		}, function(err, response, data){
-			if (err){
+			if (err || data.error){
 				res.send(400, err);
 				return;
 			}
 			getAll(req, res);
 		});
 	});
-		
+
 	app.post("/api/todos/update/:todo_id", isLoggedIn, function(req, res){
 		var postTodo = req.body.todo;
 		var postTodoId = req.params.todo_id;
@@ -95,11 +100,11 @@ module.exports = function(app){
 		}
 		request({
 			method: "PUT",
-			url: api_url + "/users/" + req.session.id + "/todos/" + postTodoId,
-			json: {user_id: req.session.id, api_token: req.session.token, todo: postTodo} 
+			url: api_url + "/users/" + req.session.user_id + "/todos/" + postTodoId,
+			json: {user_id: req.session.user_id, api_token: req.session.token, todo: postTodo}
 		}, function(err, response, data){
-			if (err){
-				res.send(400, err);	
+			if (err || data.error){
+				res.send(400, err);
 				return;
 			}
 			getAll(req, res);
@@ -108,7 +113,7 @@ module.exports = function(app){
 }
 
 function isLoggedIn(req, res, next){
-	if (req.session.token && req.session.id){
+	if (req.session.token && req.session.user_id){
 		return next();
 	}
 	res.send(401, "Not Logged In");
@@ -116,11 +121,11 @@ function isLoggedIn(req, res, next){
 }
 
 function getAll(req, res){
-	request(api_url + "/users/" + req.session.id + "/todos", function(err, response, data){
-		if(err){
+	request(api_url + "/users/" + req.session.user_id + "/todos.json?api_token="+req.session.token, function(err, response, data){
+		if(err || data.error){
 			res.send(400, err);
 			return;
-		}	
+		}
 		res.send(200, data);
 	});
 }

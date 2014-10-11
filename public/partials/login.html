@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row col-md-6 col-md-offset-3 col-sm-12">
+    <form class="form-signin" name="userForm" ng-submit="submitForm()" role="form">
+      <h2 class="form-signin-heading" id="loginHeader">Please sign in</h2>
+      <div class="panel panel-danger" ng-show="signinFail">
+        <div class="panel-body">
+          Incorrect username or password
+        </div>
+      </div>
+      <div class="panel panel-danger" ng-show="registerFail">
+        <div class="panel-body">
+          Account already exists
+        </div>
+      </div>
+      <input type="email" class="form-control" ng-model="userForm.email" placeholder="Email address" required autofocus>
+      <br />
+      <input type="password" class="form-control" ng-model="userForm.password" placeholder="Password" required>
+      <br />
+      <button class="btn btn-lg btn-primary btn-block" type="submit" id="signinButton">Sign in</button>
+      <br />
+      <a id="switchOption" ng-click="switch()">Don't have an account? Register here!</a>
+    </form>
+  </div>
+</div> <!-- /container -->
